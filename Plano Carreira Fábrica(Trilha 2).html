@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plano de Carreira - Frontend (Trilha 2)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                50: '#f8fafc',
+                100: '#f1f5f9',
+                200: '#e2e8f0',
+                500: '#3b82f6',
+                600: '#2563eb',
+                800: '#1e3a8a',
+                900: '#0f172a',
+              },
+              textCore: '#1e293b',
+              textMuted: '#475569',
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc;
+        color: #1e293b;
+      }
+      .indent-0 {
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-top: 1.75rem;
+        font-size: 1.125rem;
+        padding-bottom: 0.35rem;
+        border-bottom: 2px solid #e2e8f0;
+      }
+      .indent-0:first-child {
+        margin-top: 0.5rem;
+      }
+      .indent-1 {
+        font-weight: 600;
+        color: #334155;
+        margin-left: 1.25rem;
+        margin-top: 0.75rem;
+      }
+      .indent-2 {
+        font-weight: 500;
+        color: #475569;
+        margin-left: 2.5rem;
+        position: relative;
+        margin-top: 0.5rem;
+      }
+      .indent-2::before {
+        content: '•';
+        position: absolute;
+        left: -1.25rem;
+        color: #94a3b8;
+      }
+      .indent-4 {
+        font-weight: 400;
+        color: #64748b;
+        margin-left: 4.5rem;
+        position: relative;
+        margin-top: 0.35rem;
+        font-size: 0.95rem;
+      }
+      .indent-4::before {
+        content: '-';
+        position: absolute;
+        left: -1.25rem;
+        color: #cbd5e1;
+      }
+
+      .level-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .level-card:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        border-color: #cbd5e1;
+      }
+
+      /* Custom Scrollbar */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 20px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color: #94a3b8;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen pb-12 antialiased">
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-50 mb-8 border-b border-gray-200 bg-white py-8 shadow-sm">
+      <div class="relative container mx-auto max-w-[1600px] px-6">
+        <div
+          class="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+          <div>
+            <h1
+              class="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">
+              Plano de Carreira
+            </h1>
+            <p class="mt-2 text-lg text-gray-500">
+              Especialistas Frontend - Trilha 2
+            </p>
+          </div>
+          <!-- Controls -->
+          <div
+            class="flex rounded-xl border border-gray-200 bg-gray-100 p-1.5 shadow-inner">
+            <button
+              onclick="showCategory('Técnico Trilha II')"
+              id="btn-Técnico Trilha II"
+              class="text-brand-600 tab-btn rounded-lg bg-white px-5 py-2.5 text-sm font-semibold shadow-sm ring-1 ring-gray-900/5 transition-all">
+              Técnico
+            </button>
+            <button
+              onclick="showCategory('Comportamento')"
+              id="btn-Comportamento"
+              class="tab-btn rounded-lg px-5 py-2.5 text-sm font-medium text-gray-500 transition-all hover:text-gray-900">
+              Comportamento
+            </button>
+            <button
+              onclick="showCategory('Negócio')"
+              id="btn-Negócio"
+              class="tab-btn rounded-lg px-5 py-2.5 text-sm font-medium text-gray-500 transition-all hover:text-gray-900">
+              Negócio
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto max-w-[1600px] px-6">
+      <div id="content-container">
+        <!-- Content will be injected here -->
+      </div>
+    </main>
+
+    <script>
+      const data = {
+        Negócio: {
+          JR: [
+            {
+              text: '□ Treinamento Interno 1ª quinzena\n□ Treinamento Interno 2ª quinzena',
+              indent: 0,
+            },
+          ],
+          PL: [
+            {
+              text: '□ Treinamento Interno 1ª quinzena\n□ Treinamento Interno 2ª quinzena',
+              indent: 0,
+            },
+          ],
+          SR: [],
+        },
+        'Técnico Trilha II': {
+          JR: [
+            { text: '1. JavaScript(ES6+) & TypeScript', indent: 0 },
+            { text: 'JS Core', indent: 2 },
+            { text: 'Execution Contexts & Call Stack', indent: 4 },
+            { text: 'Hoisting / Closures / Arrays / Objetos', indent: 4 },
+            { text: 'DOM Manipulation', indent: 4 },
+            { text: 'Event Loop (Call Stack / Task Queue)', indent: 4 },
+            { text: 'Promises / Async & Await / Callbacks', indent: 4 },
+            { text: 'Fetch API básico', indent: 4 },
+            { text: 'TypeScript Básico', indent: 2 },
+            { text: 'Tipos primitivos / Interfaces / Types', indent: 4 },
+
+            { text: '2. React (Componentes & Hooks)', indent: 0 },
+            { text: 'React Lifecycle (Ciclo de Vida)', indent: 2 },
+            { text: 'Mounting / Updating / Unmounting', indent: 4 },
+            { text: 'Renderização / Reatividade', indent: 4 },
+            { text: 'Hooks Essenciais', indent: 2 },
+            { text: 'useState / useEffect / useRef', indent: 4 },
+            { text: 'Passagem de Props & Children', indent: 2 },
+
+            { text: '3. UI Engineering & Estilização', indent: 0 },
+            { text: 'HTML / CSS', indent: 2 },
+            { text: 'Flexbox / CSS Grid', indent: 4 },
+            { text: 'Semântica e Acessibilidade (a11y)', indent: 4 },
+            { text: 'Tailwind CSS', indent: 2 },
+            { text: 'Utilitários base / Layouts responsivos', indent: 4 },
+            { text: 'Configuração básica interna', indent: 4 },
+
+            { text: '4. Fetching & Integração API', indent: 0 },
+            { text: 'Consumo RESTful', indent: 2 },
+            { text: 'TanStack Query (React Query)', indent: 2 },
+            { text: 'useQuery / Caching básico', indent: 4 },
+            { text: 'Validação Zod (Schemas básicos)', indent: 4 },
+
+            { text: '5. Ecossistema Frontend Específico', indent: 0 },
+            { text: 'Documentação / Markdown', indent: 2 },
+            { text: 'MDX Sintaxe básica', indent: 4 },
+            { text: 'Nextra / Docusaurus (Navegação)', indent: 4 },
+            { text: 'Design de E-mails', indent: 2 },
+            { text: 'React Email / Componentização básica', indent: 4 },
+            { text: 'Tabelas HTML legadas (estruturação)', indent: 4 },
+            { text: 'Gerenciamento de Ícones', indent: 2 },
+            { text: 'Manipulação de SVGs', indent: 4 },
+
+            { text: '6. Git, Ferramentas & Debug', indent: 0 },
+            { text: 'Ferramentas', indent: 2 },
+            { text: 'ESLint / Prettier fix e linting', indent: 4 },
+            { text: 'Git flow básico (branches/commits)', indent: 4 },
+            { text: 'Browser DevTools & Diagnóstico', indent: 2 },
+            { text: 'Console / Elements / Breakpoints básicos', indent: 4 },
+            {
+              text: 'Aba Network (Status Codes, Headers, Payloads)',
+              indent: 4,
+            },
+            { text: 'Análise básica de Stack Traces', indent: 4 },
+
+            { text: '7. Cadência de Testes (Testing & QA)', indent: 0 },
+            { text: 'Fundamentos', indent: 2 },
+            { text: 'Testes Unitários básicos (Vitest ou Jest)', indent: 4 },
+            {
+              text: 'Noções de React Testing Library (renderização e queries simples)',
+              indent: 4,
+            },
+
+            { text: '8. Gerenciamento de Estado (Client-Side)', indent: 0 },
+            { text: 'Conceitos React', indent: 2 },
+            { text: 'React Context API básico', indent: 4 },
+            { text: 'Prop Drilling e quando evitá-lo', indent: 4 },
+
+            { text: '9. Autenticação e Autorização (AuthZ/AuthN)', indent: 0 },
+            { text: 'Conceitos Fundamentais', indent: 2 },
+            { text: 'Entendimento básico de Tokens (JWT, Session)', indent: 4 },
+            { text: 'Cookies vs localStorage', indent: 4 },
+
+            { text: '10. SEO Técnico & Core Web Vitals', indent: 0 },
+            { text: 'Fundamentos de Indexação', indent: 2 },
+            {
+              text: 'Meta tags essenciais (OpenGraph, Twitter Cards)',
+              indent: 4,
+            },
+            {
+              text: 'Semântica e estruturação básica de sitemap.xml e robots.txt',
+              indent: 4,
+            },
+
+            { text: '11. Acessibilidade (a11y) & Inclusão', indent: 0 },
+            { text: 'Acessibilidade Básica', indent: 2 },
+            {
+              text: 'Focus management básico (navegação por teclado)',
+              indent: 4,
+            },
+            { text: 'Uso de semântica HTML pura antes de ARIA', indent: 4 },
+            { text: 'Contraste de cores e hierarquia de headings', indent: 4 },
+
+            { text: '12. Interação com Banco de Dados (Básico)', indent: 0 },
+            { text: 'Fundamentos de Dados Relacionais', indent: 2 },
+            {
+              text: 'Noções básicas de SQL (Selects simples, Joins básicos)',
+              indent: 4,
+            },
+            {
+              text: 'Entendimento de respostas de API e modelagem básica',
+              indent: 4,
+            },
+
+            { text: '13. Internacionalização (i18n) & Localização', indent: 0 },
+            { text: 'Formatação de Dados Nativos', indent: 2 },
+            {
+              text: 'Formatação correta de moedas, datas e horas (Intl nativo JS)',
+              indent: 4,
+            },
+            {
+              text: 'Bibliotecas de parsing de tempo (date-fns, dayjs)',
+              indent: 4,
+            },
+          ],
+          PL: [
+            { text: '1. JavaScript Avançado & TypeScript', indent: 0 },
+            { text: 'JS Engines', indent: 2 },
+            { text: 'Event Loop Avançado / Microtasks', indent: 4 },
+            { text: 'Memory Leaks (Garbage Collection)', indent: 4 },
+            { text: 'TypeScript Avançado', indent: 2 },
+            { text: 'Generics Complexos', indent: 4 },
+            { text: 'Utility Types (Omit, Pick, Partial)', indent: 4 },
+            { text: 'Type Narrowing & Guards', indent: 4 },
+            { text: 'Inferência de Zod para Types', indent: 4 },
+
+            { text: '2. Arquitetura React & Next.js', indent: 0 },
+            { text: 'Next.js (App Router)', indent: 2 },
+            { text: 'React Server Components (RSC) vs Client', indent: 4 },
+            { text: '(SSR, SSG, ISR)', indent: 4 },
+            { text: 'Server Actions / Mutações Reativas', indent: 4 },
+            { text: 'Streaming & Suspense Boundaries', indent: 4 },
+            { text: 'Next.js Middleware', indent: 4 },
+            { text: 'Performance React', indent: 2 },
+            { text: 'useMemo / useCallback / memo', indent: 4 },
+            {
+              text: 'Evitando re-renders desnecessários e useEffect',
+              indent: 4,
+            },
+
+            { text: '3. UI Engineering Escalável', indent: 0 },
+            { text: 'Design Systems & Componentes', indent: 2 },
+            { text: 'Radix UI Primitives / Headless UI', indent: 4 },
+            { text: 'Tailwind Merge (twMerge/clsx)', indent: 4 },
+            { text: 'Storybook para documentação', indent: 4 },
+
+            { text: '4. Fetching Avançado & tRPC', indent: 0 },
+            { text: 'tRPC API', indent: 2 },
+            { text: 'Definição de Routers / Procedures', indent: 4 },
+            { text: 'Middlewares & Contextos Auth', indent: 4 },
+            { text: 'TanStack Query Avançado', indent: 2 },
+            { text: 'Cache Invalidation e Prefetching', indent: 4 },
+            { text: 'Optimistic Updates / Mutações fluídas', indent: 4 },
+
+            { text: '5. Desafios Específicos & Ferramentas', indent: 0 },
+            { text: 'E-mails Avançado', indent: 2 },
+            { text: 'Cross-client constraint (Outlook/Gmail)', indent: 4 },
+            { text: 'Bibliotecas de Ícones', indent: 2 },
+            { text: 'Icon Bundlers (SVGR / IcoMoon)', indent: 4 },
+            { text: 'Publicação de Pacotes NPM', indent: 4 },
+            { text: 'Debug Avançado & Network', indent: 2 },
+            {
+              text: 'Depuração Avançada no DevTools (Profiler / Memory)',
+              indent: 4,
+            },
+            { text: 'Network Waterfalls / Throttling / Latência', indent: 4 },
+            { text: 'Resolução de problemas de CORS e Proxies', indent: 4 },
+            { text: 'Observabilidade Específica', indent: 2 },
+            { text: 'Next.js Analytics & Web Vitals', indent: 4 },
+            { text: 'Sentry / Datadog (Tratamentos de erros)', indent: 4 },
+
+            { text: '6. Testes', indent: 0 },
+            { text: 'Automação e Integração', indent: 2 },
+            {
+              text: 'Mocks complexos de API (MSW - Mock Service Worker)',
+              indent: 4,
+            },
+            { text: 'Testes de Integração', indent: 4 },
+            { text: 'Testes E2E básicos (Playwright ou Cypress)', indent: 4 },
+
+            { text: '7. Gerenciamento de Estado Global', indent: 0 },
+            { text: 'Bibliotecas e Padrões', indent: 2 },
+            { text: 'Zustand, Jotai ou Redux Toolkit', indent: 4 },
+            {
+              text: 'Gerenciamento de estado complexo e sincronização URL-State',
+              indent: 4,
+            },
+
+            { text: '8. Animação e Interação Avançada', indent: 0 },
+            { text: 'UI Motion', indent: 2 },
+            { text: 'Transições CSS avançadas', indent: 4 },
+            { text: 'Framer Motion', indent: 4 },
+
+            { text: '9. Autenticação e Autorização (AuthZ/AuthN)', indent: 0 },
+            { text: 'Implementação Next.js', indent: 2 },
+            {
+              text: 'Integração com Auth.js (NextAuth), Better Auth ou Clerk',
+              indent: 4,
+            },
+            { text: 'Middlewares de proteção de rotas no Next.js', indent: 4 },
+            { text: 'Role-Based Access Control (RBAC)', indent: 4 },
+
+            { text: '10. SEO Dinâmico & Performance', indent: 0 },
+            {
+              text: 'Otimização de LCP, INP, CLS (Core Web Vitals)',
+              indent: 2,
+            },
+            { text: 'SEO dinâmico via Server Components', indent: 4 },
+            { text: 'Rich Snippets e JSON-LD (Schema Markup)', indent: 4 },
+
+            { text: '11. Acessibilidade Avançada (a11y)', indent: 0 },
+            { text: 'Padrões de Interação Acessíveis', indent: 2 },
+            {
+              text: 'ARIA Patterns estruturados (aria-hidden, aria-expanded, role)',
+              indent: 4,
+            },
+            {
+              text: 'Testes práticos em Screen Readers (NVDA/VoiceOver)',
+              indent: 4,
+            },
+
+            {
+              text: '12. Engenharia de Release, Monorepos & Tooling',
+              indent: 0,
+            },
+            { text: 'Gestão de Workspaces', indent: 2 },
+            {
+              text: 'Consumo e gestão de dependências internas no monorepo (Ex: @acme/ui)',
+              indent: 4,
+            },
+            {
+              text: 'Versionamento semântico de bibliotecas internas',
+              indent: 4,
+            },
+
+            { text: '13. Offline-First & Browser APIs Funcionais', indent: 0 },
+            { text: 'Progressive Web Apps (PWA)', indent: 2 },
+            {
+              text: 'Implementação e Cache via Service Workers (Workbox)',
+              indent: 4,
+            },
+            { text: 'Web Storage avançado (IndexedDB)', indent: 4 },
+            {
+              text: 'Integração com Web APIs nativas (Câmera, Geolocation, Share API)',
+              indent: 4,
+            },
+
+            { text: '14. Manipulação de Banco de Dados via ORM', indent: 0 },
+            { text: 'Next.js Server Actions & ORMs', indent: 2 },
+            {
+              text: 'Domínio de Drizzle ORM (ou Prisma) em Server Actions',
+              indent: 4,
+            },
+            {
+              text: 'Entendimento de Schemas, Migrations e Relacionamentos CRUD',
+              indent: 4,
+            },
+
+            { text: '15. Edge Computing & Cloud Infrastructure', indent: 0 },
+            { text: 'Plataformas de Deploy Moderno (Vercel/AWS)', indent: 2 },
+            {
+              text: 'Node.js Serverless Functions vs Edge Functions',
+              indent: 4,
+            },
+            {
+              text: 'Gestão segura e propagação de Variáveis de Ambiente',
+              indent: 4,
+            },
+
+            {
+              text: '16. Next.js Internacionalização Avançada (i18n)',
+              indent: 0,
+            },
+            { text: 'App Router i18n Mapping', indent: 2 },
+            {
+              text: 'Arquitetura de dicionários baseada em diretórios (Dictionaries)',
+              indent: 4,
+            },
+            {
+              text: 'Estratégias de redirecionamento Middlewares por *locale*',
+              indent: 4,
+            },
+
+            { text: '17. WebSockets & Real-Time Sync', indent: 0 },
+            { text: 'Comunicação Bidirecional', indent: 2 },
+            {
+              text: 'Consumo básico de WebSockets (Socket.io ou nativo)',
+              indent: 4,
+            },
+            {
+              text: 'Gerenciamento de reconexão e tratamento de estados de conexão no frontend',
+              indent: 4,
+            },
+            { text: '18. Arquitetura Orientada a Interface', indent: 0 },
+            { text: 'Server-Driven UI (Noções)', indent: 2 },
+            {
+              text: 'Entendimento básico de payloads JSON que ditam componentes na tela',
+              indent: 4,
+            },
+            {
+              text: 'Separação clara entre Lógica de Negócio (Backend) vs Apresentação (Frontend)',
+              indent: 4,
+            },
+          ],
+          SR: [
+            { text: '1. Performance & Otimização Extrema', indent: 0 },
+            { text: 'Otimização Avançada', indent: 2 },
+            { text: 'Edge computing', indent: 4 },
+            { text: 'Otimização de bundle analyzer', indent: 4 },
+            {
+              text: 'Estratégias profundas de Caching no Next.js (Full Route Cache, Data Cache, revalidation strategies)',
+              indent: 4,
+            },
+
+            { text: '2. Segurança (AppSec)', indent: 0 },
+            { text: 'Proteção de Aplicações', indent: 2 },
+            { text: 'OWASP no Frontend', indent: 4 },
+            { text: 'Mitigação de XSS/CSRF', indent: 4 },
+            { text: 'Content Security Policies (CSP)', indent: 4 },
+            { text: 'Gestão segura de JWT/Cookies no Next.js', indent: 4 },
+
+            { text: '3. Testes', indent: 0 },
+            { text: 'Estratégias de Qualidade', indent: 2 },
+            { text: 'Criação de estratégias de testes', indent: 4 },
+            { text: 'Integração de testes contínuos em CI/CD', indent: 4 },
+            { text: 'Testagem Visual e de Acessibilidade', indent: 4 },
+
+            { text: '4. Animação e Interação Complexa', indent: 0 },
+            { text: 'Motion', indent: 2 },
+            { text: 'Animações baseadas em Scroll complexas', indent: 4 },
+            {
+              text: 'Perfis de performance em animações (FLIP animations)',
+              indent: 4,
+            },
+
+            { text: '5. Liderança Técnica', indent: 0 },
+            { text: 'Engenharia de Software', indent: 2 },
+            { text: 'Mentoria', indent: 4 },
+            { text: 'Revisão de arquitetura', indent: 4 },
+            { text: 'CI/CD pipelines estruturados', indent: 4 },
+            { text: 'Definição de padrões de engenharia', indent: 4 },
+
+            { text: '6. SEO Estratégico & Monitoramento Real', indent: 0 },
+            {
+              text: 'Monitoramento contínuo de Performance Real (RUM)',
+              indent: 2,
+            },
+            {
+              text: 'Estratégias de renderização híbrida',
+              indent: 4,
+            },
+            { text: 'Indexação em larga escala e Crawl Budget', indent: 4 },
+
+            { text: '7. Acessibilidade Absoluta e Conformidade', indent: 0 },
+            { text: 'Conformidade legal (WCAG AA/AAA)', indent: 2 },
+            {
+              text: 'Criação de componentes do zero 100% acessíveis (como em Headless UI)',
+              indent: 4,
+            },
+            {
+              text: 'Injeção e políticas de testes de acessibilidade no CI/CD',
+              indent: 4,
+            },
+
+            {
+              text: '8. Arquitetura de Monorepos & Tooling em Escala',
+              indent: 0,
+            },
+            { text: 'Ferramental', indent: 2 },
+            { text: 'Gestão Avançada do Monorepo (Turborepo/Nx)', indent: 4 },
+            {
+              text: 'Configuração avançada de cacheabilidade de builds',
+              indent: 4,
+            },
+            {
+              text: 'Criação de scripts customizados e ferramentas de Release (Changesets)',
+              indent: 4,
+            },
+
+            { text: '9. Sincronização Massiva & APIs Avançadas', indent: 0 },
+            { text: 'Aplicações Offline-First', indent: 2 },
+            {
+              text: 'Sincronização em background (Background Sync API)',
+              indent: 4,
+            },
+            {
+              text: 'Push Notifications web',
+              indent: 4,
+            },
+            {
+              text: 'Arquiteturas robustas que sincronizam de forma otimizada ao reestabelecer conexão',
+              indent: 4,
+            },
+
+            { text: '10. Orquestração de Dados Massiva', indent: 0 },
+            { text: 'Database Efficiency', indent: 2 },
+            {
+              text: 'Otimização profunda de Queries SQL via ORM (DataLoader ou Query Builder)',
+              indent: 4,
+            },
+            {
+              text: 'Soluções de Transações (Transactions) distribuídas no fluxo Frontend',
+              indent: 4,
+            },
+
+            {
+              text: '11. Observabilidade Cloud',
+              indent: 0,
+            },
+            {
+              text: 'Análise Avançada de Logs na Cloud e redução de custos Serverless',
+              indent: 2,
+            },
+            { text: '12. Localização em Escala CMS-First', indent: 0 },
+            { text: 'I18n Escalável', indent: 2 },
+            {
+              text: 'Integração profunda de Dicionários com Headless CMS (Sanity/Strapi)',
+              indent: 4,
+            },
+
+            {
+              text: '13. Arquitetura Streaming & Real-Time Avançado',
+              indent: 0,
+            },
+            { text: 'WebSockets de Alta Escala', indent: 2 },
+            {
+              text: 'Server-Sent Events (SSE) nativo no Next.js App Router',
+              indent: 4,
+            },
+            {
+              text: 'Arquitetura de Pub/Sub estrita e Webhooks orientados à UI',
+              indent: 4,
+            },
+            {
+              text: 'Sincronização de estado otimista com WebSockets e tRPC Subscriptions',
+              indent: 4,
+            },
+            { text: '14. Server-Driven UI (SDUI) Aplicado', indent: 0 },
+            { text: 'Componentização Dinâmica', indent: 2 },
+            {
+              text: 'Modelagem de componentes React capazes de interpretar JSONs abstratos',
+              indent: 4,
+            },
+            {
+              text: 'Criação de Renderizadores Genéricos (Factory Pattern) para UI',
+              indent: 4,
+            },
+          ],
+        },
+        Comportamento: {
+          JR: [
+            {
+              text: '□ Ética\n□ Procrastinação\n□ Comunicação não violenta\n□ Comunicação assertiva\n□ Foco\n□ Gestão do Tempo\n□ Produtividade',
+              indent: 0,
+            },
+          ],
+          PL: [
+            {
+              text: '□ Ética\n□ Oratória\n□ Inteligência Emocional\n□ Feedback\n□ Comunicacao interpessoal\n□ Gestão de Conflitos\n□ Storytelling\n□ Neurocriatividade',
+              indent: 0,
+            },
+          ],
+          SR: [{ text: '□ Ética\n□ Pensamento Criativo', indent: 0 }],
+        },
+      };
+
+      function renderList(items) {
+        if (!items || items.length === 0)
+          return '<div class="flex flex-col items-center justify-center h-full py-12 text-gray-400"><svg class="w-12 h-12 mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg><span class="text-sm font-medium">Nenhum requisito definido</span></div>';
+
+        let html = '<div class="space-y-1">';
+        items.forEach(item => {
+          let text = item.text;
+          let indent = item.indent || 0;
+          if (text.includes('\n')) {
+            text.split('\n').forEach(line => {
+              let cleanLine = line.trim();
+              if (!cleanLine) return;
+
+              if (cleanLine.startsWith('□ ')) {
+                cleanLine = cleanLine.substring(2);
+                html += `
+                  <div class="flex items-start gap-3 py-2 border-b border-gray-100 last:border-0 group">
+                    <div class="mt-0.5 text-brand-500 opacity-70 group-hover:opacity-100 transition-opacity">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg>
+                    </div>
+                    <span class="text-gray-700 font-medium">${cleanLine}</span>
+                  </div>`;
+              } else {
+                html += `<div class="indent-1 py-1.5 border-b border-gray-100 last:border-0">${cleanLine}</div>`;
+              }
+            });
+          } else {
+            html += `<div class="indent-${Math.min(indent, 4)}">${text}</div>`;
+          }
+        });
+        html += '</div>';
+        return html;
+      }
+
+      function showCategory(category) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.className =
+            'px-5 py-2.5 rounded-lg text-sm font-medium transition-all text-gray-500 hover:text-gray-900 hover:bg-white/50 tab-btn';
+        });
+        const activeBtn = document.getElementById('btn-' + category);
+        if (activeBtn) {
+          activeBtn.className =
+            'px-5 py-2.5 rounded-lg text-sm font-semibold transition-all bg-white text-brand-600 shadow-sm ring-1 ring-gray-900/5 tab-btn';
+        }
+
+        const catData = data[category];
+        const levels = [
+          {
+            id: 'JR',
+            title: 'Júnior',
+            bgHeader: 'bg-emerald-50',
+            borderHeader: 'border-emerald-100',
+            textTitle: 'text-emerald-800',
+          },
+          {
+            id: 'PL',
+            title: 'Pleno',
+            bgHeader: 'bg-blue-50',
+            borderHeader: 'border-blue-100',
+            textTitle: 'text-blue-800',
+          },
+          {
+            id: 'SR',
+            title: 'Sênior',
+            bgHeader: 'bg-purple-50',
+            borderHeader: 'border-purple-100',
+            textTitle: 'text-purple-800',
+          },
+        ];
+
+        let html = '<div class="grid grid-cols-1 md:grid-cols-3 gap-8">';
+
+        levels.forEach(level => {
+          const hasContent = catData[level.id] && catData[level.id].length > 0;
+
+          html += `
+                    <div class="level-card rounded-2xl overflow-hidden flex flex-col h-[calc(100vh-14rem)] bg-white">
+                        <div class="px-6 py-5 border-b ${level.borderHeader} flex flex-col justify-center items-center gap-1 ${level.bgHeader}">
+                            <span class="text-xs font-semibold tracking-wider text-gray-500 uppercase">Nível</span>
+                            <h2 class="text-2xl font-bold tracking-tight ${level.textTitle}">
+                                ${level.title}
+                            </h2>
+                        </div>
+                        <div class="p-6 flex-grow overflow-y-auto custom-scrollbar ${!hasContent ? 'flex items-center justify-center bg-gray-50/50' : ''}">
+                            ${renderList(catData[level.id])}
+                        </div>
+                    </div>
+                `;
+        });
+
+        html += '</div>';
+        document.getElementById('content-container').innerHTML = html;
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        showCategory('Técnico Trilha II');
+      });
+    </script>
+  </body>
+</html>
